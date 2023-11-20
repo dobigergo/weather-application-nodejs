@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+<body>
+    <div class="main-content">
+        {{>header}}
+        <div class="content-area">
+            <p>Search for your weather data:</p>
+            <form>
+                <input placeholder="Location" type="text"></input>
+                <button>Search</button>
+            </form>
+            <div class="weather-report-area">
+                
+            </div>
+        </div>
+    </div>
+    <div class="spinner-area hidden">
+            <div class="lds-dual-ring"></div>
+    </div>
+     {{>footer}}
+     <script src="/js/app.js"></script>
+</body>
+</html>
