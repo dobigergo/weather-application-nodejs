@@ -19,7 +19,15 @@ weatherForm.addEventListener('submit',(e) => {
                     reportArea.innerHTML = createErrorMessageCard(data.error)
                 }
                 else{
-                    reportArea.innerHTML = createMessageCard(data.place_name,data.icon,data.temperature,data.feelslike,data.windspeed,data.precip,data.description)
+                    reportArea.innerHTML = createMessageCard(data.place_name,
+                        data.state,
+                        data.country,
+                        data.icon,
+                        data.temperature,
+                        data.feelslike,
+                        data.windspeed,
+                        data.precip,
+                        data.description)
                 }
                 spinner.classList.add("hidden")
         })
@@ -30,9 +38,9 @@ weatherForm.addEventListener('submit',(e) => {
     }
 })
 
-const createMessageCard = function(place_name,src,temperature,feelslike,windspeed,precip,description){
+const createMessageCard = function(place_name,state,country,src,temperature,feelslike,windspeed,precip,description){
     return '<div class="weather-card"><img src='+ src +
-     '></img><div class="weather-info"><p>'+place_name+'</p><p>Temperature: ' + temperature +
+     '></img><div class="weather-info"><p>'+place_name+', '+state+ ',' + country+'</p><p>Temperature: ' + temperature +
      '°C</p><p>Feels like: '+ feelslike +
      '°C</p><p>Wind speed: ' + windspeed + 
      'km/h</p><p>Rain: '+precip+'%</p><p>' +
