@@ -2,13 +2,17 @@ const weatherForm = document.querySelector("form")
 const search = document.querySelector("input")
 const reportArea = document.querySelector(".weather-report-area")
 const spinner = document.querySelector(".spinner-area")
+const domain = document.location.host
 
 weatherForm.addEventListener('submit',(e) => {
     e.preventDefault()
     const location = search.value
+    spinner.classList.remove("hidden")
     try{
-        spinner.classList.remove("hidden")
-        fetch('http://localhost:3000/weather?address=' + location).then((response)=>{
+        fetch(domain + '/weather?address=' + location).then((response)=>{
+            if(!response.ok){
+               throw new Error('Error in request')
+            }
             response.json().then((data)=>{
                 if(data.error){
                     reportArea.innerHTML = createErrorMessageCard(data.error)
@@ -18,11 +22,10 @@ weatherForm.addEventListener('submit',(e) => {
                 }
                 spinner.classList.add("hidden")
         })
-     })
+     }).catch(cancelSpinner)
     }
     catch(e){
-        reportArea.innerHTML = createErrorMessageCard("Something went wrong! Please try again later!")
-        spinner.classList.add("hidden")
+        cancelSpinner()
     }
 })
 
@@ -47,4 +50,9 @@ const createErrorMessageCard = function(message){
 '<path id="shape0" transform="translate(48, 57.6)" fill="none" stroke="#b70013" stroke-width="7.68" stroke-linecap="square" stroke-linejoin="bevel" d="M76.8 0L0 134.4L153.6 134.4Z" sodipodi:nodetypes="cccc"/><path id="shape1" transform="translate(124.8, 86.4)" fill="none" stroke="#b70013" stroke-width="7.68" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L0 67.2" sodipodi:nodetypes="cc"/><path id="shape2" transform="translate(124.8, 153.6)" fill="none" stroke="#b70013" stroke-width="7.68" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 9.6L0 0" sodipodi:nodetypes="cc"/><ellipse id="shape3" transform="translate(120, 174)" rx="4.8" ry="4.19999999999999" cx="4.8" cy="4.19999999999999" fill="none" stroke="#b70013" stroke-width="7.68" stroke-linecap="square" stroke-linejoin="bevel"/>' +
 '</svg>' +
  message + '</div></div>'
+}
+
+const cancelSpinner = function(){
+    reportArea.innerHTML = createErrorMessageCard("Something went wrong! Please try again later!")
+    spinner.classList.add("hidden")
 }
