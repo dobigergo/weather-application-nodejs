@@ -2,17 +2,18 @@ const weatherForm = document.querySelector("form")
 const search = document.querySelector("input")
 const reportArea = document.querySelector(".weather-report-area")
 const spinner = document.querySelector(".spinner-area")
-const domain = document.location.host
+const url = document.location.href
 
 weatherForm.addEventListener('submit',(e) => {
     e.preventDefault()
     const location = search.value
     spinner.classList.remove("hidden")
     try{
-        fetch(domain + '/weather?address=' + location).then((response)=>{
+        fetch(url + 'weather?address=' + location).then((response)=>{
             if(!response.ok){
                throw new Error('Error in request')
             }
+            console.log(response.body)
             response.json().then((data)=>{
                 if(data.error){
                     reportArea.innerHTML = createErrorMessageCard(data.error)
