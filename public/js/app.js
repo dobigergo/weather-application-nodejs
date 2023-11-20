@@ -13,7 +13,6 @@ weatherForm.addEventListener('submit',(e) => {
             if(!response.ok){
                throw new Error('Error in request')
             }
-            console.log(response.body)
             response.json().then((data)=>{
                 if(data.error){
                     reportArea.innerHTML = createErrorMessageCard(data.error)

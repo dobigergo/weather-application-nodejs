@@ -52,7 +52,6 @@ app.get('/products',(req,res)=>{
         res.send({error:"you must provide a search term"})
         return
     }
-    console.log(req.query)
     res.send({products:[]})
 })
 
@@ -65,5 +64,4 @@ app.get('*',(req,res)=>{
 })
 
 app.listen(3000,()=>{
-    console.log('Server is up on port 3000')
 })
